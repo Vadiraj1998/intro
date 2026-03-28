@@ -197,8 +197,7 @@
             font-size: 11px;
             color: #38bdf8;
         }
-                /* Hide default scrollbar styling */
-                .overflow-x-auto {
+        .overflow-x-auto {
             scrollbar-width: thin;
             scrollbar-color: #38bdf8 #0f172a;
         }
@@ -222,8 +221,8 @@
             background: linear-gradient(90deg, #0ea5e9, #6366f1);
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
         }
-                /* Global spacing reduction */
-                section {
+        
+        section {
             padding: 16px 24px !important;
         }
         
@@ -263,6 +262,24 @@
         .py-12 {
             padding-top: 20px !important;
             padding-bottom: 20px !important;
+        }
+
+        /* Clickable experience card styling */
+        .experience-card {
+            cursor: pointer;
+        }
+
+        .experience-details {
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .expand-icon.open {
+            transform: rotate(180deg);
         }
     </style>
 </head>
@@ -573,9 +590,9 @@
         <div class="relative">
             <!-- Current Role - HSBC Consultant Specialist -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.1s;">
-                <div class="card p-8 rounded-xl border-l-4 border-l-emerald-500 group">
+                <div class="card p-8 rounded-xl border-l-4 border-l-emerald-500 group experience-card cursor-pointer" data-expanded="false">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div>
+                        <div class="flex-1">
                             <div class="flex items-center gap-3 mb-2">
                                 <h3 class="text-2xl font-bold font-mono">Storage & Automation Consultant Specialist</h3>
                                 <span class="text-xs bg-emerald-500/30 border border-emerald-400 text-emerald-300 px-3 py-1 rounded font-mono">CURRENT</span>
@@ -589,13 +606,14 @@
                             <span class="text-xs bg-emerald-500/20 px-4 py-2 rounded font-mono text-emerald-300 whitespace-nowrap block">Jan 2026 → Present</span>
                             <span class="transition-badge"><i class="fas fa-trophy mr-1"></i>Promoted to Specialist</span>
                         </div>
+                        <i class="fas fa-chevron-down expand-icon text-emerald-400 text-xl md:hidden"></i>
                     </div>
                     <div class="bg-emerald-500/10 border-l-2 border-l-emerald-500 pl-4 py-3 mb-4 rounded">
                         <p class="text-emerald-300 text-sm font-mono">
                             <i class="fas fa-star text-emerald-400 mr-2"></i>Strategic consultant role — Driving enterprise automation architecture & mentoring cross-functional teams
                         </p>
                     </div>
-                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono experience-details max-h-0 overflow-hidden transition-all duration-300">
                         <li>Architecting enterprise-wide NAS automation strategy & governance frameworks</li>
                         <li>Leading design reviews for scalable Python automation frameworks across multi-cluster environments</li>
                         <li>Consulting on CI/CD pipeline standardization with compliance & security-first approach</li>
@@ -608,11 +626,12 @@
 
             <!-- Purview Senior Software Engineer -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.2s;">
-                <div class="card p-8 rounded-xl border-l-4 border-l-blue-500 group">
+                <div class="card p-8 rounded-xl border-l-4 border-l-blue-500 group experience-card cursor-pointer" data-expanded="false">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div>
+                        <div class="flex-1">
                             <div class="flex items-center gap-3 mb-2">
                                 <h3 class="text-2xl font-bold font-mono">Senior Software Engineer</h3>
+                                <span class="text-xs bg-blue-500/20 border border-blue-400 text-blue-300 px-3 py-1 rounded font-mono">CONTRACT</span>
                             </div>
                             <p class="text-blue-400 font-mono text-lg">Purview India Consultancy (Client: HSBC)</p>
                             <p class="text-xs text-blue-300 mt-1 font-mono italic opacity-0 group-hover:opacity-100 transition">
@@ -620,33 +639,36 @@
                             </p>
                         </div>
                         <span class="text-xs bg-blue-500/20 px-4 py-2 rounded font-mono text-blue-300 whitespace-nowrap">Feb 2025 → Dec 2025</span>
+                        <i class="fas fa-chevron-down expand-icon text-blue-400 text-xl md:hidden"></i>
                     </div>
                     <div class="bg-blue-500/10 border-l-2 border-l-blue-500 pl-4 py-3 mb-4 rounded">
                         <p class="text-blue-300 text-sm font-mono">
                             <i class="fas fa-arrow-up text-blue-400 mr-2"></i>Established automation patterns & demonstrated strategic value — Led to direct hire consultant role
                         </p>
                     </div>
-                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono experience-details max-h-0 overflow-hidden transition-all duration-300">
                         <li>Developed enterprise Python automation scripts for Confluence REST APIs integration</li>
                         <li>Architected Jenkins CI/CD pipelines for password rotation automation at scale</li>
                         <li>Implemented SSL certificate expiration detection using Venafi + Vault integration</li>
                         <li>Led NAS cluster migrations with head-swap operations <span class="text-slate-500 italic">(Zero downtime, maximum learning)</span></li>
                         <li>Built SLA compliance dashboards & request tracking frameworks</li>
+                        <li>Conducted technical workshops on automation best practices for cross-functional teams</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Kyndryl Role -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.3s;">
-                <div class="card p-8 rounded-xl border-l-4 border-l-sky-500">
+                <div class="card p-8 rounded-xl border-l-4 border-l-sky-500 experience-card cursor-pointer" data-expanded="false">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div>
+                        <div class="flex-1">
                             <h3 class="text-2xl font-bold mb-2 font-mono">Associate System Administrator</h3>
                             <p class="text-sky-400 font-mono text-lg">Kyndryl Inc. (Juniper Networks)</p>
                         </div>
                         <span class="text-xs bg-sky-500/20 px-4 py-2 rounded font-mono text-sky-300 whitespace-nowrap">Sept 2022 → Jan 2025</span>
+                        <i class="fas fa-chevron-down expand-icon text-sky-400 text-xl md:hidden"></i>
                     </div>
-                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono experience-details max-h-0 overflow-hidden transition-all duration-300">
                         <li>ServiceNow dashboard architecture for queue management & SLA tracking</li>
                         <li>NetApp cluster deployment from scratch with network planning</li>
                         <li>Zero-downtime volume migration with intercluster peering</li>
@@ -658,15 +680,16 @@
 
             <!-- Wipro Role 2 -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.4s;">
-                <div class="card p-8 rounded-xl border-l-4 border-l-indigo-500">
+                <div class="card p-8 rounded-xl border-l-4 border-l-indigo-500 experience-card cursor-pointer" data-expanded="false">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div>
+                        <div class="flex-1">
                             <h3 class="text-2xl font-bold mb-2 font-mono">Senior Storage Administrator</h3>
                             <p class="text-indigo-400 font-mono text-lg">Wipro Technologies (Northern Trust)</p>
                         </div>
                         <span class="text-xs bg-indigo-500/20 px-4 py-2 rounded font-mono text-indigo-300 whitespace-nowrap">July 2020 → Sept 2022</span>
+                        <i class="fas fa-chevron-down expand-icon text-indigo-400 text-xl md:hidden"></i>
                     </div>
-                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono experience-details max-h-0 overflow-hidden transition-all duration-300">
                         <li>ONTAP OS & Switch firmware upgrades planning & execution</li>
                         <li>VSCAN antivirus configuration using Symantec Protection Engine</li>
                         <li>Python & PowerShell automation for operational reports</li>
@@ -678,15 +701,16 @@
 
             <!-- Wipro Role 1 -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.5s;">
-                <div class="card p-8 rounded-xl border-l-4 border-l-purple-500">
+                <div class="card p-8 rounded-xl border-l-4 border-l-purple-500 experience-card cursor-pointer" data-expanded="false">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div>
+                        <div class="flex-1">
                             <h3 class="text-2xl font-bold mb-2 font-mono">Storage Administrator</h3>
                             <p class="text-purple-400 font-mono text-lg">Wipro Technologies (Axis Capital)</p>
                         </div>
                         <span class="text-xs bg-purple-500/20 px-4 py-2 rounded font-mono text-purple-300 whitespace-nowrap">Sept 2019 → June 2020</span>
+                        <i class="fas fa-chevron-down expand-icon text-purple-400 text-xl md:hidden"></i>
                     </div>
-                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono experience-details max-h-0 overflow-hidden transition-all duration-300">
                         <li>4 storage clusters & 8 7-Mode HA pairs monitoring & troubleshooting</li>
                         <li>7-Mode to Cluster migration (7MTT) for NAS & SAN environments</li>
                         <li>NFS/CIFS provisioning & iSCSI LUN management</li>
@@ -857,7 +881,7 @@
                             <span>NetApp Certified Data Administrator, ONTAP</span>
                         </p>
                         <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
-                            → Can architect storage solutions with eyes closed (not recommended)
+                            → Can architect storage solutions with eyes closed
                         </p>
                     </div>
                     <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition group cursor-pointer">
@@ -926,6 +950,26 @@
     <footer class="border-t border-slate-800/50 py-12 text-center text-slate-500 text-xs bg-black/20 font-mono">
         <p>© 2026 Vadiraja Tantri M S. Architected with code. Automated at scale. 🏗️⚡</p>
     </footer>
+
+    <script>
+        document.querySelectorAll('.experience-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const details = this.querySelector('.experience-details');
+                const expandIcon = this.querySelector('.expand-icon');
+                const isExpanded = this.getAttribute('data-expanded') === 'true';
+                
+                if (isExpanded) {
+                    details.style.maxHeight = '0';
+                    if (expandIcon) expandIcon.classList.remove('open');
+                    this.setAttribute('data-expanded', 'false');
+                } else {
+                    details.style.maxHeight = details.scrollHeight + 'px';
+                    if (expandIcon) expandIcon.classList.add('open');
+                    this.setAttribute('data-expanded', 'true');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
