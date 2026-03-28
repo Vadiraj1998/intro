@@ -176,6 +176,27 @@
             font-size: 11px;
             color: #38bdf8;
         }
+        .status-dev-love {
+            border-color: #f43f5e;
+            color: #fb7185;
+            background: rgba(244, 63, 94, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .status-dev-love::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
     </style>
 </head>
 <body class="leading-relaxed antialiased">
@@ -200,7 +221,7 @@
                 <div class="mb-6 space-y-2">
                     <span class="status-badge status-nifty"><i class="fas fa-server mr-2"></i>NETAPP / ONTAP SPECIALIST</span>
                     <span class="status-badge status-dry ml-2"><i class="fas fa-check mr-2"></i>PRODUCTION-READY</span>
-                    <span class="status-badge status-warning ml-2"><i class="fas fa-heart mr-2"></i>BUT IN LOVE WITH DEV</span>
+                    <span class="status-badge status-dev-love ml-2"><i class="fas fa-heart mr-2 animate-pulse"></i>BUT IN LOVE WITH DEV</span>
                 </div>
                 <h1 class="hero-title mb-6">Vadiraja Tantri M S</h1>
                 <p class="text-xl text-sky-400 mb-4 font-mono">Storage & Automation Consultant Specialist</p>
