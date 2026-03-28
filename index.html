@@ -321,7 +321,7 @@
         <div class="relative">
             <!-- Current Role - HSBC Direct Hire -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.1s;">
-                <div class="card p-8 rounded-xl border-l-4 border-l-emerald-500">
+                <div class="card p-8 rounded-xl border-l-4 border-l-emerald-500 group">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                         <div>
                             <div class="flex items-center gap-3 mb-2">
@@ -329,6 +329,9 @@
                                 <span class="text-xs bg-emerald-500/30 border border-emerald-400 text-emerald-300 px-3 py-1 rounded font-mono">CURRENT</span>
                             </div>
                             <p class="text-emerald-400 font-mono text-lg">HSBC | Direct Hire Employee</p>
+                            <p class="text-xs text-emerald-300 mt-1 font-mono italic opacity-0 group-hover:opacity-100 transition">
+                                (Finally got them to pay for my coffee ☕)
+                            </p>
                         </div>
                         <div class="text-right space-y-1">
                             <span class="text-xs bg-emerald-500/20 px-4 py-2 rounded font-mono text-emerald-300 whitespace-nowrap block">Jan 2026 → Present</span>
@@ -337,14 +340,14 @@
                     </div>
                     <div class="bg-emerald-500/10 border-l-2 border-l-emerald-500 pl-4 py-3 mb-4 rounded">
                         <p class="text-emerald-300 text-sm font-mono">
-                            <i class="fas fa-star text-emerald-400 mr-2"></i>Transitioned from Purview contract to permanent HSBC role
+                            <i class="fas fa-star text-emerald-400 mr-2"></i>Transitioned from Purview contract to permanent HSBC role (Translation: They liked me enough to keep me 🎉)
                         </p>
                     </div>
                     <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
                         <li>Developed Python automation scripts for Confluence REST APIs integration</li>
-                        <li>Implemented Jenkins CI/CD pipelines for password rotation automation</li>
+                        <li>Implemented Jenkins CI/CD pipelines for password rotation automation <span class="text-slate-500 italic">(So machines never forget passwords, but I do)</span></li>
                         <li>Created SSL certificate expiration detection using Venafi + Vault</li>
-                        <li>Executed NAS cluster migrations with head-swap operations</li>
+                        <li>Executed NAS cluster migrations with head-swap operations <span class="text-slate-500 italic">(Zero downtime = Zero sleep)</span></li>
                         <li>Built SLA compliance dashboards for request tracking</li>
                     </ul>
                 </div>
@@ -352,17 +355,20 @@
 
             <!-- Purview Contract - Collapsed -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.2s;">
-                <div class="card p-6 rounded-xl border-l-4 border-l-blue-500 opacity-85">
+                <div class="card p-6 rounded-xl border-l-4 border-l-blue-500 opacity-85 hover:opacity-100 transition group">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
                             <h3 class="text-lg font-bold font-mono text-blue-400 mb-1">NAS Automation Engineer (Contract)</h3>
                             <p class="text-xs text-blue-300 font-mono">Purview India Consultancy | Same role, same client — foundation for direct hire</p>
+                            <p class="text-xs text-slate-500 mt-1 italic group-hover:text-sky-400 transition">
+                                (The "audition" that went really well ✨)
+                            </p>
                         </div>
                         <span class="text-xs bg-blue-500/20 px-4 py-2 rounded font-mono text-blue-300 whitespace-nowrap">Feb 2025 → Dec 2025</span>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Kyndryl Role -->
             <div class="timeline-item experience-badge" style="animation-delay: 0.3s;">
                 <div class="card p-8 rounded-xl border-l-4 border-l-sky-500">
@@ -530,22 +536,31 @@
             <div>
                 <h2 class="section-title gradient-text mb-8"><i class="fas fa-certificate mr-3"></i>Certifications</h2>
                 <div class="space-y-4">
-                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition">
+                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition group cursor-pointer">
                         <p class="flex items-start font-mono text-sm">
                             <i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> 
                             <span>NetApp Certified Data Administrator, ONTAP</span>
                         </p>
+                        <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
+                            → Can prevent storage meltdowns with a single Python script
+                        </p>
                     </div>
-                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition">
+                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition group cursor-pointer">
                         <p class="flex items-start font-mono text-sm">
                             <i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> 
                             <span>AWS Solutions Architect (Trained)</span>
                         </p>
+                        <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
+                            → Knows the difference between EC2 and S3 (mostly)
+                        </p>
                     </div>
-                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition">
+                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400 hover:border-l-yellow-300 transition group cursor-pointer">
                         <p class="flex items-start font-mono text-sm">
                             <i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> 
                             <span>Hitachi Ops Center Administrator</span>
+                        </p>
+                        <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
+                            → Survived the Hitachi learning curve. You survive anything.
                         </p>
                     </div>
                 </div>
@@ -553,11 +568,41 @@
             
             <div>
                 <h2 class="section-title gradient-text mb-8"><i class="fas fa-graduation-cap mr-3"></i>Education</h2>
-                <div class="card p-8 rounded-xl">
+                <div class="card p-8 rounded-xl group cursor-pointer">
                     <p class="font-bold text-xl mb-3 font-mono">B.E Electronics & Instrumentation</p>
                     <p class="text-slate-400 mb-4 font-mono">Dayananda Sagar College of Engineering</p>
                     <p class="text-emerald-400 font-mono text-lg font-bold"><span class="text-slate-500">CGPA: </span>8.78 / 10</p>
+                    <p class="text-xs text-slate-500 mt-4 italic group-hover:text-sky-400 transition">
+                        → Learned to build things. Then learned to automate their failures. 🚀
+                    </p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="section-title gradient-text mb-12 text-center">404: Free Time Not Found</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="card p-6 rounded-lg text-center hover:border-emerald-500 transition group">
+                <div class="text-4xl mb-3">☕</div>
+                <p class="font-mono text-sm"><span class="text-emerald-400">Coffee Consumed:</span> 1000+ cups</p>
+                <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
+                    Per liter. Per week.
+                </p>
+            </div>
+            <div class="card p-6 rounded-lg text-center hover:border-blue-500 transition group">
+                <div class="text-4xl mb-3">🔧</div>
+                <p class="font-mono text-sm"><span class="text-blue-400">Clusters Migrated:</span> 20+</p>
+                <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
+                    All with zero downtime (and maximum anxiety)
+                </p>
+            </div>
+            <div class="card p-6 rounded-lg text-center hover:border-purple-500 transition group">
+                <div class="text-4xl mb-3">🚀</div>
+                <p class="font-mono text-sm"><span class="text-purple-400">Automation Scripts:</span> ∞</p>
+                <p class="text-xs text-slate-500 mt-2 italic group-hover:text-sky-400 transition">
+                    (Seriously, I lost count)
+                </p>
             </div>
         </div>
     </section>
