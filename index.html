@@ -68,6 +68,27 @@
             color: #f97316;
             background: rgba(249, 115, 22, 0.05);
         }
+        .status-dev-love {
+            border-color: #f43f5e;
+            color: #fb7185;
+            background: rgba(244, 63, 94, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .status-dev-love::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
         .workflow-node {
             display: inline-flex;
             align-items: center;
@@ -176,27 +197,6 @@
             font-size: 11px;
             color: #38bdf8;
         }
-        .status-dev-love {
-            border-color: #f43f5e;
-            color: #fb7185;
-            background: rgba(244, 63, 94, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        .status-dev-love::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.2), transparent);
-            animation: shimmer 3s infinite;
-        }
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
     </style>
 </head>
 <body class="leading-relaxed antialiased">
@@ -239,18 +239,17 @@
                     </a>
                 </div>
             </div>
-            <div class="relative">
-                <div class="code-block">
+            <div class="relative hidden md:block">
+                <div class="code-block max-h-80">
                     <div class="text-sky-400 mb-4">$ consultant_profile --init</div>
-                    <div class="space-y-2">
+                    <div class="space-y-2 text-sm">
                         <div><span class="text-slate-500"># Experience</span></div>
                         <div>years_active = <span class="text-orange-400">6+</span></div>
-                        <div>specialization = <span class="text-orange-400">"ONTAP | Automation | Architecture"</span></div>
-                        <div><span class="text-slate-500"># Current Focus</span></div>
+                        <div>specialization = <span class="text-orange-400">"ONTAP | Automation"</span></div>
+                        <div><span class="text-slate-500"># Current</span></div>
                         <div>role = <span class="text-orange-400">"Consultant Specialist"</span></div>
                         <div>client = <span class="text-orange-400">"HSBC"</span></div>
                         <div>employment = <span class="text-orange-400">"Direct Hire"</span></div>
-                        <div>focus = [<span class="text-orange-400">"Strategy"</span>, <span class="text-orange-400">"Architecture"</span>, <span class="text-orange-400">"Mentorship"</span>]</div>
                     </div>
                 </div>
             </div>
@@ -328,7 +327,7 @@
         </div>
 
         <!-- Key Metrics -->
-        <div class="grid md:grid-cols-4 gap-6">
+        <div class="grid md:grid-cols-4 gap-6 mb-12">
             <div class="card p-6 rounded-lg text-center">
                 <div class="text-3xl font-bold gradient-text mb-2">60%</div>
                 <p class="text-slate-400 text-sm">Automation Effort Reduced</p>
@@ -346,7 +345,8 @@
                 <p class="text-slate-400 text-sm">Enterprise Roles</p>
             </div>
         </div>
-        <!-- Fun Facts / Status Dashboard - INSERTED HERE -->
+
+        <!-- Fun Facts / Status Dashboard -->
         <div class="card p-8 rounded-xl border border-slate-700 hover:border-cyan-500 transition mb-12">
             <h3 class="text-lg font-bold mb-6 font-mono text-cyan-400 flex items-center gap-2">
                 <i class="fas fa-tachometer-alt"></i>Live Status Dashboard
@@ -458,6 +458,7 @@
             </div>
         </div>
 
+        <!-- Quote -->
         <div class="mt-12 card p-8 rounded-xl border-l-4 border-l-purple-500 bg-gradient-to-r from-slate-900/50 to-purple-900/20">
             <div class="flex items-start gap-4">
                 <i class="fas fa-quote-left text-purple-400 text-2xl mt-2"></i>
@@ -495,7 +496,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Experience Timeline -->
     <section id="experience" class="max-w-6xl mx-auto py-20 px-6">
         <h2 class="section-title gradient-text mb-12">Professional Timeline</h2>
@@ -530,7 +531,9 @@
                         <li>Leading design reviews for scalable Python automation frameworks across multi-cluster environments</li>
                         <li>Consulting on CI/CD pipeline standardization with compliance & security-first approach</li>
                         <li>Designing SSL certificate lifecycle & secret management strategy using Venafi + Vault</li>
+                        <li>Mentoring senior engineers on zero-downtime migration best practices & strategic planning <span class="text-slate-500 italic">(Elevating the team)</span></li>
                         <li>Building strategic SLA compliance frameworks & executive KPI dashboards</li>
+                        <li>Advising on multi-site automation orchestration & disaster recovery strategies</li>
                     </ul>
                 </div>
             </div>
@@ -540,6 +543,10 @@
                 <div class="card p-8 rounded-xl border-l-4 border-l-blue-500 group">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                         <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <h3 class="text-2xl font-bold font-mono">Senior Software Engineer</h3>
+                                <span class="text-xs bg-blue-500/20 border border-blue-400 text-blue-300 px-3 py-1 rounded font-mono">CONTRACT</span>
+                            </div>
                             <p class="text-blue-400 font-mono text-lg">Purview India Consultancy (Client: HSBC)</p>
                             <p class="text-xs text-blue-300 mt-1 font-mono italic opacity-0 group-hover:opacity-100 transition">
                                 (The launchpad to consultant specialist role ✨)
