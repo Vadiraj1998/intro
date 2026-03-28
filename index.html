@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { 
-            background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
+            background: linear-gradient(135deg, #0a0e27 0%, #0f1535 100%);
             color: #e2e8f0; 
-            font-family: 'Inter', sans-serif;
+            font-family: 'Courier New', monospace;
             overflow-x: hidden;
         }
         .gradient-text { 
@@ -43,29 +43,87 @@
             border-color: #38bdf8;
             box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
         }
-        .nav-link {
-            position: relative;
-            transition: color 0.3s;
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 1px solid;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
         }
-        .nav-link::after {
+        .status-nifty {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            background: rgba(6, 182, 212, 0.05);
+        }
+        .status-dry {
+            border-color: #10b981;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        .status-warning {
+            border-color: #f97316;
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.05);
+        }
+        .workflow-node {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid #334155;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .workflow-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 20px;
+            margin: 0 8px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            padding-bottom: 40px;
+        }
+        .timeline-item::before {
             content: '';
             position: absolute;
-            bottom: -2px;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            transition: width 0.3s;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border: 3px solid #0f172a;
         }
-        .nav-link:hover::after {
-            width: 100%;
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: linear-gradient(180deg, #38bdf8, transparent);
         }
-        .skill-badge {
-            transition: all 0.3s;
+        .timeline-item:last-child::after {
+            display: none;
         }
-        .skill-badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+        .code-block {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #10b981;
+            overflow-x: auto;
         }
         .experience-badge {
             animation: slideInUp 0.6s ease-out backwards;
@@ -80,9 +138,6 @@
                 transform: translateY(0);
             }
         }
-        .hero-title {
-            animation: fadeInDown 0.8s ease-out;
-        }
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -93,175 +148,388 @@
                 transform: translateY(0);
             }
         }
-        .pulse-glow {
-            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        .hero-title {
+            animation: fadeInDown 0.8s ease-out;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -2px;
         }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(56, 189, 248, 0.5); }
+        .section-title {
+            font-family: 'Courier New', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
-        .icon-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .node-label {
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body class="leading-relaxed antialiased">
 
-    <nav class="sticky top-0 z-50 bg-[#0f172a]/70 backdrop-blur-xl border-b border-slate-800/50 p-4 shadow-lg">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <span class="text-2xl font-bold gradient-text">VT.</span>
-            <div class="space-x-8 text-sm font-medium hidden md:flex">
-                <a href="#about" class="nav-link hover:text-sky-400 transition">About</a>
-                <a href="#experience" class="nav-link hover:text-sky-400 transition">Experience</a>
-                <a href="#skills" class="nav-link hover:text-sky-400 transition">Skills</a>
-                <a href="#certifications" class="nav-link hover:text-sky-400 transition">Certs</a>
+    <nav class="sticky top-0 z-50 bg-[#0a0e27]/70 backdrop-blur-xl border-b border-slate-800/50 p-4 shadow-lg">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <span class="text-2xl font-bold gradient-text font-mono">VT_STORAGE</span>
+            <div class="space-x-8 text-sm font-medium hidden md:flex font-mono">
+                <a href="#about" class="hover:text-sky-400 transition">ABOUT</a>
+                <a href="#workflow" class="hover:text-sky-400 transition">WORKFLOW</a>
+                <a href="#experience" class="hover:text-sky-400 transition">EXPERIENCE</a>
+                <a href="#skills" class="hover:text-sky-400 transition">SKILLS</a>
             </div>
             <button class="md:hidden text-sky-400"><i class="fas fa-bars text-xl"></i></button>
         </div>
     </nav>
 
-    <header id="about" class="max-w-5xl mx-auto py-32 px-6 text-center">
-        <h1 class="hero-title text-6xl md:text-7xl font-extrabold mb-6 gradient-text">Vadiraja Tantri M S</h1>
-        <p class="text-2xl text-sky-400 mb-8 font-semibold">NAS Automation Engineer & NetApp Specialist</p>
-        <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
-            <a href="mailto:vadirajatantri@outlook.com" class="card px-6 py-3 rounded-lg hover:text-sky-300"><i class="fas fa-envelope mr-2"></i>Email</a>
-            <div class="hidden md:block text-slate-700">|</div>
-            <a href="#" class="card px-6 py-3 rounded-lg hover:text-sky-300"><i class="fas fa-map-marker-alt mr-2"></i>Bangalore, India</a>
+    <!-- Hero Section -->
+    <header id="about" class="max-w-6xl mx-auto py-20 px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="mb-6 space-y-2">
+                    <span class="status-badge status-nifty"><i class="fas fa-server mr-2"></i>NETAPP / ONTAP SPECIALIST</span>
+                    <span class="status-badge status-dry ml-2"><i class="fas fa-check mr-2"></i>PRODUCTION-READY</span>
+                </div>
+                <h1 class="hero-title mb-6">Vadiraja Tantri M S</h1>
+                <p class="text-xl text-sky-400 mb-4 font-mono">NAS Automation Engineer</p>
+                <p class="text-slate-300 leading-relaxed mb-8 text-base">
+                    6+ years architecting enterprise storage solutions. Specializing in NetApp ONTAP automation, 
+                    CI/CD pipeline integration, and zero-downtime migrations. Transforming manual storage operations 
+                    into intelligent, automated workflows.
+                </p>
+                <div class="flex gap-4">
+                    <a href="mailto:vadirajatantri@outlook.com" class="card px-6 py-3 rounded-lg hover:text-sky-300 font-mono text-sm">
+                        <i class="fas fa-envelope mr-2"></i>Email
+                    </a>
+                    <a href="#" class="card px-6 py-3 rounded-lg hover:text-sky-300 font-mono text-sm">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Bangalore, India
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="code-block">
+                    <div class="text-sky-400 mb-4">$ storage_profile --init</div>
+                    <div class="space-y-2">
+                        <div><span class="text-slate-500"># Experience</span></div>
+                        <div>years_active = <span class="text-orange-400">6+</span></div>
+                        <div>specialization = <span class="text-orange-400">"ONTAP | Automation"</span></div>
+                        <div><span class="text-slate-500"># Current Focus</span></div>
+                        <div>role = <span class="text-orange-400">"NAS Automation Engineer"</span></div>
+                        <div>client = <span class="text-orange-400">"HSBC"</span></div>
+                        <div>technologies = [<span class="text-orange-400">"Python"</span>, <span class="text-orange-400">"Jenkins"</span>, <span class="text-orange-400">"API"</span>]</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="max-w-2xl mx-auto text-lg text-slate-300 italic leading-relaxed">
-            "A strong desire for knowledge will show the way even in the darkest nights."
-        </p>
     </header>
 
-    <section class="max-w-5xl mx-auto px-6 mb-32">
-        <div class="card p-10 rounded-2xl shadow-xl">
-            <h2 class="text-3xl font-bold mb-6 flex items-center">
-                <i class="fas fa-terminal text-sky-400 mr-4 text-2xl icon-float"></i> 
-                Profile
-            </h2>
-            <p class="text-slate-300 leading-relaxed text-lg">
-                Experienced NetApp Storage Engineer with 6+ years of expertise in designing, deploying, and managing enterprise storage solutions. 
-                Skilled in automation using Python, Ansible, and REST APIs, integrating storage operations within CI/CD pipelines to improve efficiency and reduce manual overhead.
-            </p>
-        </div>
-    </section>
-
-    <section id="experience" class="max-w-5xl mx-auto px-6 mb-32">
-        <h2 class="text-4xl font-bold mb-16 text-center gradient-text">Professional Journey</h2>
+    <!-- Workflow Section -->
+    <section id="workflow" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="section-title gradient-text mb-12">System Architecture</h2>
         
-        <div class="space-y-6">
-            <div class="card p-8 rounded-xl border-l-4 border-l-sky-500 experience-badge" style="animation-delay: 0.1s;">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">NAS Automation Engineer</h3>
-                        <p class="text-sky-400 font-semibold text-lg">Purview India (Client: HSBC)</p>
-                    </div>
-                    <span class="text-sm bg-sky-500/20 px-4 py-2 rounded-full text-sky-300 font-mono whitespace-nowrap">Feb 2025 — Present</span>
-                </div>
-                <ul class="list-disc list-inside text-slate-300 space-y-3 text-base">
-                    <li>Developed Python automation for Confluence REST APIs, reducing manual documentation effort by 60%.</li>
-                    <li>Implemented Jenkins pipelines to automate StorageX and ONTAP password rotations.</li>
-                    <li>Managed NAS cluster migrations including head-swaps with minimal downtime.</li>
-                </ul>
+        <div class="card p-8 rounded-xl mb-12">
+            <div class="mb-6">
+                <p class="text-slate-400 font-mono text-sm mb-4">Current Role: Storage Automation Pipeline</p>
             </div>
-
-            <div class="card p-8 rounded-xl border-l-4 border-l-indigo-500 experience-badge" style="animation-delay: 0.2s;">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Associate System Administrator</h3>
-                        <p class="text-indigo-400 font-semibold text-lg">Kyndryl Inc. (Client: Juniper Networks)</p>
+            
+            <div class="overflow-x-auto pb-4">
+                <div class="flex items-center justify-between min-w-max gap-2">
+                    <div class="workflow-node">
+                        <i class="fas fa-code text-purple-400"></i>
+                        <div>
+                            <div class="node-label">Python</div>
+                            <div>Confluence API</div>
+                        </div>
                     </div>
-                    <span class="text-sm bg-indigo-500/20 px-4 py-2 rounded-full text-indigo-300 font-mono">Sept 2022 — Feb 2025</span>
+                    
+                    <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="workflow-node">
+                        <i class="fas fa-cog text-orange-400"></i>
+                        <div>
+                            <div class="node-label">Orchestration</div>
+                            <div>Jenkins Pipeline</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="workflow-node">
+                        <i class="fas fa-lock text-amber-400"></i>
+                        <div>
+                            <div class="node-label">Security</div>
+                            <div>Vault / Venafi</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="workflow-node">
+                        <i class="fas fa-cube text-sky-400"></i>
+                        <div>
+                            <div class="node-label">Storage</div>
+                            <div>StorageX / ONTAP</div>
+                        </div>
+                    </div>
                 </div>
-                <ul class="list-disc list-inside text-slate-300 space-y-3 text-base">
-                    <li>Built ServiceNow dashboards for queue management and SLA tracking.</li>
-                    <li>Designed and deployed NetApp clusters from scratch (network planning, nodes, LIFs, CIFS/NFS).</li>
-                    <li>Resolved complex LAG and LACP issues and managed CVO clusters via BlueXP API.</li>
-                </ul>
             </div>
+        </div>
 
-            <div class="card p-8 rounded-xl border-l-4 border-l-slate-500 experience-badge" style="animation-delay: 0.3s;">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Senior Storage Administrator</h3>
-                        <p class="text-slate-400 font-semibold text-lg">Wipro Technologies</p>
-                    </div>
-                    <span class="text-sm bg-slate-700/50 px-4 py-2 rounded-full text-slate-300 font-mono">Sept 2019 — Sept 2022</span>
-                </div>
-                <p class="text-slate-300 leading-relaxed text-base">Supported Axis Capital & Northern Trust. Executed 7-Mode to Cluster migrations (7MTT) and automated report generation using Python and PowerShell, improving team productivity by 40%.</p>
+        <!-- Key Metrics -->
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="card p-6 rounded-lg text-center">
+                <div class="text-3xl font-bold gradient-text mb-2">60%</div>
+                <p class="text-slate-400 text-sm">Documentation Effort Reduced</p>
+            </div>
+            <div class="card p-6 rounded-lg text-center">
+                <div class="text-3xl font-bold gradient-text mb-2">6+</div>
+                <p class="text-slate-400 text-sm">Years Experience</p>
+            </div>
+            <div class="card p-6 rounded-lg text-center">
+                <div class="text-3xl font-bold gradient-text mb-2">∞</div>
+                <p class="text-slate-400 text-sm">Zero-Downtime Migrations</p>
+            </div>
+            <div class="card p-6 rounded-lg text-center">
+                <div class="text-3xl font-bold gradient-text mb-2">4</div>
+                <p class="text-slate-400 text-sm">Enterprise Roles</p>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="max-w-5xl mx-auto px-6 mb-32">
-        <h2 class="text-4xl font-bold mb-16 text-center gradient-text">Technical Arsenal</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-cube text-sky-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">NetApp ONTAP</span>
+    <!-- Experience Timeline -->
+    <section id="experience" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="section-title gradient-text mb-12">Professional Timeline</h2>
+        
+        <div class="relative">
+            <!-- Current Role -->
+            <div class="timeline-item experience-badge" style="animation-delay: 0.1s;">
+                <div class="card p-8 rounded-xl">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 font-mono">NAS Automation Engineer</h3>
+                            <p class="text-emerald-400 font-mono text-lg">Purview India (HSBC)</p>
+                        </div>
+                        <span class="text-xs bg-emerald-500/20 px-4 py-2 rounded font-mono text-emerald-300 whitespace-nowrap">Jan 2025 → Present</span>
+                    </div>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                        <li>Developed Python automation scripts for Confluence REST APIs integration</li>
+                        <li>Implemented Jenkins CI/CD pipelines for password rotation automation</li>
+                        <li>Created SSL certificate expiration detection using Venafi + Vault</li>
+                        <li>Executed NAS cluster migrations with head-swap operations</li>
+                        <li>Built SLA compliance dashboards for request tracking</li>
+                    </ul>
+                </div>
             </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-code text-purple-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">Python / PowerShell</span>
+
+            <!-- Kyndryl Role -->
+            <div class="timeline-item experience-badge" style="animation-delay: 0.2s;">
+                <div class="card p-8 rounded-xl">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 font-mono">Associate System Administrator</h3>
+                            <p class="text-sky-400 font-mono text-lg">Kyndryl Inc. (Juniper Networks)</p>
+                        </div>
+                        <span class="text-xs bg-sky-500/20 px-4 py-2 rounded font-mono text-sky-300">Sept 2022 → Feb 2025</span>
+                    </div>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                        <li>ServiceNow dashboard architecture for queue management & SLA tracking</li>
+                        <li>NetApp cluster deployment from scratch with network planning</li>
+                        <li>Zero-downtime volume migration with intercluster peering</li>
+                        <li>SNMPv1/v3 alerting integration to ServiceNow</li>
+                        <li>BlueXP / CVO cluster management & S3 cold data migrations</li>
+                    </ul>
+                </div>
             </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-plug text-blue-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">REST APIs</span>
+
+            <!-- Wipro Role 2 -->
+            <div class="timeline-item experience-badge" style="animation-delay: 0.3s;">
+                <div class="card p-8 rounded-xl">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 font-mono">Senior Storage Administrator</h3>
+                            <p class="text-indigo-400 font-mono text-lg">Wipro Technologies (Northern Trust)</p>
+                        </div>
+                        <span class="text-xs bg-indigo-500/20 px-4 py-2 rounded font-mono text-indigo-300">July 2020 → Sept 2022</span>
+                    </div>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                        <li>ONTAP OS & Switch firmware upgrades planning & execution</li>
+                        <li>VSCAN antivirus configuration using Symantec Protection Engine</li>
+                        <li>Python & PowerShell automation for operational reports</li>
+                        <li>SnapMirror replication & disaster recovery testing</li>
+                        <li>SMBv1 elimination across all NetApp systems (security compliance)</li>
+                    </ul>
+                </div>
             </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-cogs text-orange-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">Ansible / Jenkins</span>
-            </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-folder text-cyan-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">NAS (NFS/CIFS)</span>
-            </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-sitemap text-pink-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">SAN (iSCSI)</span>
-            </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-cloud text-indigo-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">BlueXP / CVO</span>
-            </div>
-            <div class="card skill-badge p-6 rounded-lg text-center hover:bg-slate-700/50 cursor-pointer">
-                <i class="fas fa-layer-group text-green-400 text-2xl mb-3 block"></i>
-                <span class="font-semibold">ServiceNow</span>
+
+            <!-- Wipro Role 1 -->
+            <div class="timeline-item experience-badge" style="animation-delay: 0.4s;">
+                <div class="card p-8 rounded-xl">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 font-mono">Storage Administrator</h3>
+                            <p class="text-purple-400 font-mono text-lg">Wipro Technologies (Axis Capital)</p>
+                        </div>
+                        <span class="text-xs bg-purple-500/20 px-4 py-2 rounded font-mono text-purple-300">Sept 2019 → June 2020</span>
+                    </div>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm font-mono">
+                        <li>4 storage clusters & 8 7-Mode HA pairs monitoring & troubleshooting</li>
+                        <li>7-Mode to Cluster migration (7MTT) for NAS & SAN environments</li>
+                        <li>NFS/CIFS provisioning & iSCSI LUN management</li>
+                        <li>Snap Drive, SnapCenter, OCUM tool proficiency</li>
+                        <li>Weekly/monthly compliance reports for clients</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="certifications" class="max-w-5xl mx-auto px-6 pb-20 grid md:grid-cols-2 gap-12">
-        <div>
-            <h2 class="text-3xl font-bold mb-8 gradient-text"><i class="fas fa-certificate text-sky-400 mr-3"></i> Certifications</h2>
-            <div class="space-y-4">
-                <div class="card p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> <span>NetApp Certified Data Administrator, ONTAP</span></p>
-                </div>
-                <div class="card p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> <span>AWS Solutions Architect (Trained)</span></p>
-                </div>
-                <div class="card p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> <span>Hitachi Ops Center Administrator</span></p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <h2 class="text-3xl font-bold mb-8 gradient-text"><i class="fas fa-graduation-cap text-sky-400 mr-3"></i> Education</h2>
+    <!-- Skills Section -->
+    <section id="skills" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="section-title gradient-text mb-12">Technical Stack</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Storage Layer -->
             <div class="card p-8 rounded-xl">
-                <p class="font-bold text-xl mb-3">B.E in Electronics & Instrumentation</p>
-                <p class="text-slate-400 mb-4">Dayananda Sagar College of Engineering</p>
-                <p class="text-sky-400 font-mono text-lg font-bold">CGPA: 8.78 / 10</p>
+                <h3 class="text-lg font-bold mb-6 font-mono text-sky-400">Storage Layer</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-sky-400 mb-2"><i class="fas fa-cube mr-2"></i>ONTAP</div>
+                        <p class="text-xs text-slate-400">Cluster & 7-Mode</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-sky-400 mb-2"><i class="fas fa-folder mr-2"></i>NAS</div>
+                        <p class="text-xs text-slate-400">NFS / CIFS</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-sky-400 mb-2"><i class="fas fa-sitemap mr-2"></i>SAN</div>
+                        <p class="text-xs text-slate-400">iSCSI / FC</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-sky-400 mb-2"><i class="fas fa-cloud mr-2"></i>CVO</div>
+                        <p class="text-xs text-slate-400">BlueXP Managed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automation Layer -->
+            <div class="card p-8 rounded-xl">
+                <h3 class="text-lg font-bold mb-6 font-mono text-purple-400">Automation Layer</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-purple-400 mb-2"><i class="fas fa-code mr-2"></i>Python</div>
+                        <p class="text-xs text-slate-400">REST APIs</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-purple-400 mb-2"><i class="fas fa-code mr-2"></i>PowerShell</div>
+                        <p class="text-xs text-slate-400">System Automation</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-purple-400 mb-2"><i class="fas fa-cogs mr-2"></i>Ansible</div>
+                        <p class="text-xs text-slate-400">Infrastructure</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-purple-400 mb-2"><i class="fas fa-cog mr-2"></i>Jenkins</div>
+                        <p class="text-xs text-slate-400">CI/CD Pipelines</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Layer -->
+            <div class="card p-8 rounded-xl">
+                <h3 class="text-lg font-bold mb-6 font-mono text-amber-400">Security & Secrets</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-amber-400 mb-2"><i class="fas fa-lock mr-2"></i>Vault</div>
+                        <p class="text-xs text-slate-400">Secret Management</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-amber-400 mb-2"><i class="fas fa-key mr-2"></i>Venafi</div>
+                        <p class="text-xs text-slate-400">SSL Certificate Mgmt</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-amber-400 mb-2"><i class="fas fa-shield mr-2"></i>SNMP</div>
+                        <p class="text-xs text-slate-400">v1 / v3 Traps</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-amber-400 mb-2"><i class="fas fa-certificate mr-2"></i>SSL/TLS</div>
+                        <p class="text-xs text-slate-400">Certificate Mgmt</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools & Platforms -->
+            <div class="card p-8 rounded-xl">
+                <h3 class="text-lg font-bold mb-6 font-mono text-green-400">Tools & Platforms</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-green-400 mb-2"><i class="fas fa-layer-group mr-2"></i>ServiceNow</div>
+                        <p class="text-xs text-slate-400">ITIL Workflows</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-green-400 mb-2"><i class="fas fa-book mr-2"></i>Confluence</div>
+                        <p class="text-xs text-slate-400">API Integration</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-green-400 mb-2"><i class="fas fa-sitemap mr-2"></i>SnapCenter</div>
+                        <p class="text-xs text-slate-400">Backup / Restore</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="font-mono text-sm text-green-400 mb-2"><i class="fas fa-bar-chart mr-2"></i>ActiveIQ</div>
+                        <p class="text-xs text-slate-400">Analytics</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="border-t border-slate-800/50 py-12 text-center text-slate-500 text-sm bg-black/20">
-        <p>© 2026 Vadiraja Tantri M S. Built with code and storage automation. ⚡</p>
+    <!-- Certifications -->
+    <section class="max-w-6xl mx-auto py-20 px-6">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="section-title gradient-text mb-8"><i class="fas fa-certificate mr-3"></i>Certifications</h2>
+                <div class="space-y-4">
+                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400">
+                        <p class="flex items-start font-mono text-sm">
+                            <i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> 
+                            <span>NetApp Certified Data Administrator, ONTAP</span>
+                        </p>
+                    </div>
+                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400">
+                        <p class="flex items-start font-mono text-sm">
+                            <i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> 
+                            <span>AWS Solutions Architect (Trained)</span>
+                        </p>
+                    </div>
+                    <div class="card p-6 rounded-lg border-l-4 border-l-yellow-400">
+                        <p class="flex items-start font-mono text-sm">
+                            <i class="fas fa-star text-yellow-400 mr-3 mt-1 flex-shrink-0"></i> 
+                            <span>Hitachi Ops Center Administrator</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="section-title gradient-text mb-8"><i class="fas fa-graduation-cap mr-3"></i>Education</h2>
+                <div class="card p-8 rounded-xl">
+                    <p class="font-bold text-xl mb-3 font-mono">B.E Electronics & Instrumentation</p>
+                    <p class="text-slate-400 mb-4 font-mono">Dayananda Sagar College of Engineering</p>
+                    <p class="text-emerald-400 font-mono text-lg font-bold"><span class="text-slate-500">CGPA: </span>8.78 / 10</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800/50 py-12 text-center text-slate-500 text-xs bg-black/20 font-mono">
+        <p>© 2026 Vadiraja Tantri M S. Architected with code. Automated with precision. ⚡</p>
     </footer>
 
 </body>
