@@ -281,6 +281,34 @@
         .expand-icon.open {
             transform: rotate(180deg);
         }
+        /* Modal Styles */
+        #profileModal {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        #profileModal.hidden {
+            display: none;
+        }
+        
+        #profileModal > div {
+            animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
     </style>
 </head>
 <body class="leading-relaxed antialiased">
@@ -300,7 +328,8 @@
 
     <!-- Hero Section -->
     <header id="about" class="max-w-6xl mx-auto py-12 px-6">
-        <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+            <!-- Left Side -->
             <div>
                 <div class="mb-4" style="display: flex; flex-wrap: wrap; gap: 8px;">
                     <span class="status-badge status-nifty"><i class="fas fa-server mr-2"></i>NETAPP / ONTAP SPECIALIST</span>
@@ -308,6 +337,12 @@
                     <span class="status-badge status-dev-love"><i class="fas fa-heart mr-2 animate-pulse"></i>BUT IN LOVE WITH DEV</span>
                 </div>
                 <h1 class="hero-title mb-4">Vadiraja Tantri M S</h1>
+                
+                <!-- Profile Picture - TOP -->
+                <div class="mb-6 md:hidden block">
+                    <img src="./pic.png" alt="Vadiraja Tantri" class="w-32 h-32 rounded-lg shadow-lg border-2 border-slate-600 mx-auto">
+                </div>
+                
                 <p class="text-lg text-sky-400 mb-3 font-mono">Storage & Automation Consultant Specialist</p>
                 <p class="text-slate-300 leading-relaxed mb-6 text-sm">
                     6+ years architecting enterprise storage solutions. Specializing in NetApp ONTAP automation, 
@@ -315,6 +350,9 @@
                     enterprise-wide automation transformation for Fortune 500 organizations.
                 </p>
                 <div class="flex gap-3 flex-wrap">
+                    <button onclick="openModal()" class="card px-5 py-2 rounded-lg hover:text-sky-300 font-mono text-xs hover:border-sky-400 transition group">
+                        <i class="fas fa-image mr-2"></i>View Profile
+                    </button>
                     <a href="mailto:vadirajatantri@outlook.com" class="card px-5 py-2 rounded-lg hover:text-sky-300 font-mono text-xs">
                         <i class="fas fa-envelope mr-2"></i>Email
                     </a>
@@ -326,8 +364,17 @@
                     </a>
                 </div>
             </div>
-            <div class="relative hidden md:block">
-                <div class="code-block max-h-64">
+            
+            <!-- Right Side - Desktop Profile Picture -->
+            <div class="relative hidden md:flex flex-col items-center justify-center h-full">
+                <div class="w-full h-96 rounded-xl shadow-lg border-2 border-slate-600 overflow-hidden group cursor-pointer hover:border-sky-400 transition mb-8 flex items-center justify-center" onclick="openModal()">
+                    <img src="./pic.png" alt="Vadiraja Tantri" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/50 group-hover:bg-black/30 rounded-xl transition opacity-0 group-hover:opacity-100">
+                        <i class="fas fa-search text-4xl text-sky-400"></i>
+                    </div>
+                </div>
+                
+                <div class="code-block w-full">
                     <div class="text-sky-400 mb-3 text-xs">$ consultant_profile --init</div>
                     <div class="space-y-1 text-xs">
                         <div><span class="text-slate-500"># Experience</span></div>
@@ -995,6 +1042,91 @@
             });
         });
     </script>
+
+<div id="profileModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 max-w-md w-full p-8 relative">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        
+        <!-- Profile Image -->
+        <div class="mb-6">
+            <img src="./pic.png" alt="Vadiraja Tantri" class="w-full h-auto rounded-xl shadow-lg border border-slate-600">
+        </div>
+        
+        <!-- Profile Info -->
+        <div class="text-center">
+            <h3 class="text-2xl font-bold font-mono gradient-text mb-2">Vadiraja Tantri M S</h3>
+            <p class="text-sky-400 font-mono mb-4">Storage & Automation Consultant Specialist</p>
+            <p class="text-slate-400 text-sm mb-6">
+                6+ years architecting enterprise storage solutions. Specializing in NetApp ONTAP automation.
+            </p>
+            
+            <!-- Action Buttons -->
+            <div class="flex gap-3 justify-center">
+                <a href="mailto:vadirajatantri@outlook.com" class="card px-4 py-2 rounded-lg font-mono text-xs hover:border-sky-400 transition">
+                    <i class="fas fa-envelope mr-2"></i>Email
+                </a>
+                <a href="https://www.linkedin.com/in/vadiraja-tantri-m-s/" target="_blank" class="card px-4 py-2 rounded-lg font-mono text-xs hover:border-sky-400 transition">
+                    <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="border-t border-slate-800/50 py-12 text-center text-slate-500 text-xs bg-black/20 font-mono">
+    <p>© 2026 Vadiraja Tantri M S. Architected with code. Automated at scale. 🏗️⚡</p>
+</footer>
+
+<script>
+    // Experience Card Toggle
+    document.querySelectorAll('.experience-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const details = this.querySelector('.experience-details');
+            const expandIcon = this.querySelector('.expand-icon');
+            const isExpanded = this.getAttribute('data-expanded') === 'true';
+            
+            if (isExpanded) {
+                details.style.maxHeight = '0';
+                if (expandIcon) expandIcon.classList.remove('open');
+                this.setAttribute('data-expanded', 'false');
+            } else {
+                details.style.maxHeight = details.scrollHeight + 'px';
+                if (expandIcon) expandIcon.classList.add('open');
+                this.setAttribute('data-expanded', 'true');
+            }
+        });
+    });
+
+    // Modal Functions
+    function openModal() {
+        const modal = document.getElementById('profileModal');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('profileModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal on outside click
+    document.getElementById('profileModal')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
 
 </body>
 </html>
